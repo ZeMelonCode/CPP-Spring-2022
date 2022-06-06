@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-
+    public int checkPoint = 0;
     public HealthBar healthBar;
     public Transform[] spawnPoints;
     static GameManager _instance = null;
@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour
         get { return _instance; }
         set { _instance = value; }
     }
+
+    int _lives = 3;
+    int maxLives = 3;
 
     float _hp = 100;
     float maxHp = 100;
@@ -37,6 +40,24 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public int lives
+    {
+        get { return _lives; }
+        set
+        {
+            if (_lives > value)
+            {
+                Destroy(playerInstance);
+                SpawnPlayer(currentLevel.spawnPoint.position);
+            }
+            _lives = value;
+            if (_lives > maxLives)
+                _lives = maxLives;
+            onLifeValueChange.Invoke(value);
+
+        }
+    }
+
     [HideInInspector]public UnityEvent<float> onLifeValueChange;
     [HideInInspector] public GameObject playerInstance;
     [HideInInspector] public Level currentLevel;
@@ -52,8 +73,7 @@ public class GameManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        int spawner = Random.Range(0,4);
-        SpawnPlayer(spawnPoints[spawner]);
+    SpawnPlayer(spawnPoints[checkPoint].position);
     }
 
     // Update is called once per frame
@@ -62,10 +82,10 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void SpawnPlayer(Transform spawnLocation)
-    {
-        playerInstance = Instantiate(playerPrefab, spawnLocation.position, spawnLocation.rotation);
-        healthBar.SetMaxHealth(_hp);
+    public void SpawnPlayer(Vector3 spawnLocation)
+    {  
+        playerInstance = Instantiate(playerPrefab, spawnLocation, transform.rotation);
+        healthBar.setHealth(_hp);
     }
 
     public void playerTakeDamage(float damage)
@@ -76,7 +96,7 @@ public class GameManager : MonoBehaviour
 
         if( _hp <= 0)
         {
-            DeathSequence();
+            LoseLife();
         }
     }
 
@@ -86,6 +106,22 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         SceneManager.LoadScene("EndScene");
+    }
+
+     private void LoseLife()
+    {
+        Debug.Log(lives);
+        if(_lives <= 0)
+        {
+            DeathSequence();
+        }
+        else
+        {
+            Destroy(playerInstance);
+            _hp = maxHp;
+            SpawnPlayer(spawnPoints[checkPoint].position);
+             _lives --;
+        }
     }
 
     public void PauseMenuChange(bool active)
@@ -102,5 +138,31 @@ public class GameManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
+    }
+
+    public void SaveState()
+    {
+        LoadSaveSystem.SaveState(this);
+    }
+
+    public void LoadState()
+    {
+       DataManager data = LoadSaveSystem.LoadState();
+       
+        checkPoint = data.checkPoint;
+        _hp = data.hp;
+        _lives = data.lives;
+        Vector3 position = new Vector3();
+        position.x =data.position[0];
+        position.y =data.position[1];
+        position.z =data.position[2];
+
+        Destroy(playerInstance);
+        SpawnPlayer(position);
+
+        Debug.Log("Checkpoint : " + checkPoint);
+        Debug.Log("Lives : " +lives);
+        Debug.Log("Hp : " +hp);
+        Debug.Log(position);
     }
 }

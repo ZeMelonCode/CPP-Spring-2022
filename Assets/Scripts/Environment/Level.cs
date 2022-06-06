@@ -10,7 +10,7 @@ public class Level : MonoBehaviour
     void Start()
     {
         GameManager.instance.hp = Hp;
-        GameManager.instance.SpawnPlayer(spawnPoint);
+        GameManager.instance.SpawnPlayer(spawnPoint.position);
         GameManager.instance.currentLevel = this;
     }
 

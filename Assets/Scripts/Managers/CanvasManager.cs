@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 public class CanvasManager : MonoBehaviour
 {
-
     public UnityEvent<bool> OnPauseMenuChange;
 
     [Header("Buffs")]
@@ -17,6 +16,9 @@ public class CanvasManager : MonoBehaviour
     public Button quitButton;
     public Button settingsButton;
     public Button backButton;
+
+    public Button saveButton;
+    public Button loadButton;
 
     public Button backToMenuButton;
     public Button resumeGameButton;
@@ -53,7 +55,12 @@ public class CanvasManager : MonoBehaviour
     {
         SceneManager.LoadScene("Menu");
     }
-
+    public void LoadGame()
+    {
+        pauseMenu.SetActive(false);
+        OnPauseMenuChange.Invoke(false);
+        LoadSaveSystem.LoadState();
+    }
     public void ResumeGame()
     {
         //  Time.timeScale = 1f;
@@ -91,6 +98,12 @@ public class CanvasManager : MonoBehaviour
 
         if (quitButton)
             quitButton.onClick.AddListener(() => QuitGame());
+
+        if (saveButton)
+            saveButton.onClick.AddListener(() => GameManager.instance.SaveState());
+
+        if (loadButton)
+            loadButton.onClick.AddListener(() => GameManager.instance.LoadState());
 
         if(resumeGameButton)
             resumeGameButton.onClick.AddListener(() => ResumeGame());

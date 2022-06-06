@@ -23,60 +23,66 @@ public class FireSkele : Enemy
 
     public bool dead = false;
     // Start is called before the first frame update
-    void Awake()
+    public override void Start()
     {
+        base.Start();
         navAgent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         firePartical = GetComponent<ParticleSystem>();
         timer = wanderTimer;
+       
     }
     void Update()
     {
         //Compare player's position
-       if(!dead) 
+    player = GameObject.Find("Player(Clone)");
+    
+    if(!dead) 
        {
-        player = GameObject.Find("Player(Clone)");
-        distance = Vector3.Distance(transform.position, player.transform.position);
-        if(distance <= 15) patrolState = false;
-        if(distance > 15) patrolState = true;
+        if(player)
+        {
+            distance = Vector3.Distance(transform.position, player.transform.position);
+            if(distance <= 15) patrolState = false;
+            if(distance > 15) patrolState = true;
 
-        //Boo Behaviour
-            if(!seen)
-            {
-                // Seek Player
-                if(patrolState == false)
+            //Boo Behaviour
+                if(!seen)
                 {
-                    navAgent.SetDestination(player.transform.position);
+                    // Seek Player
+                    if(patrolState == false)
+                    {
+                        navAgent.SetDestination(player.transform.position);
+                    }
+                    else
+                    {
+                       timer += Time.deltaTime;
+                        if (timer >= wanderTimer) 
+                         {
+                             Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
+                             navAgent.SetDestination(newPos);
+                             timer = 0;
+                         }
+                    }
+    
                 }
                 else
                 {
-                   timer += Time.deltaTime;
-                    if (timer >= wanderTimer) 
-                     {
-                         Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
-                         navAgent.SetDestination(newPos);
-                         timer = 0;
-                     }
+                    navAgent.isStopped = true;
                 }
-    
-            }
-            else
-            {
-                navAgent.isStopped = true;
-            }
 
-            if(distance < 0)
-            {
-                distance *= -1;
-            }
-            if( distance < 3f)
-            {
-                explode();
-            }
-            else
-            {
-                recentlyExploded = false;
-            }
+                if(distance < 0)
+                {
+                    distance *= -1;
+                }
+                if( distance < 3f)
+                {
+                    explode();
+                }
+                else
+                {
+                    recentlyExploded = false;
+                }
+         }
        }
     }
 

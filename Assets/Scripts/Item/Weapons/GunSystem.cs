@@ -23,8 +23,8 @@ public class GunSystem : Weapon
     Vector3 bulletSpeed;
     private void Awake()
     {
-            ammoBoost = GameObject.Find("AmmoUp");
-            ammoBoost.SetActive(false);
+           // ammoBoost = GameObject.Find("AmmoUp");
+           //ammoBoost.SetActive(false);
             anim = GetComponent<Animator>();
             try
             {
@@ -150,11 +150,11 @@ public class GunSystem : Weapon
     {
         coroutineRunning = true;
         timeBetweenShooting /= 2;
-        ammoBoost.SetActive(true); 
+       // ammoBoost.SetActive(true);
 
         yield return new WaitForSeconds(5.0f);
 
-        ammoBoost.SetActive(false); 
+       // ammoBoost.SetActive(false);
 
         timeBetweenShooting *= 2;
         coroutineRunning = false;

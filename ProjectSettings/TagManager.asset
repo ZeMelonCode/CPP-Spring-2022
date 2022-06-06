@@ -9,6 +9,9 @@ TagManager:
   - FireSkeleton
   - Weapon
   - SlowPlant
+  - Farm
+  - Lagoon
+  - Boat
   layers:
   - Default
   - TransparentFX

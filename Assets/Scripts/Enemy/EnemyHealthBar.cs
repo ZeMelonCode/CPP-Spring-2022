@@ -8,7 +8,27 @@ public class EnemyHealthBar : HealthBar
        
        private void Start() 
        {
-           try
+           if(!cam)
+           {
+               findCamera();
+           }
+           GameManager.instance.onLifeValueChange.AddListener(findCamera); 
+       }
+    void LateUpdate()
+    {
+        if(cam)
+        {
+           transform.LookAt(transform.position + cam.forward);
+        }
+        else
+        {
+            findCamera();
+        }
+    }
+
+    private void findCamera(float f = 0f)
+    {
+         try
            {
               cam = GameObject.Find("Main Camera").GetComponent<Transform>();
            }
@@ -16,9 +36,5 @@ public class EnemyHealthBar : HealthBar
            {
                Debug.Log("No camera found");
            }
-       }
-    void LateUpdate()
-    {
-        transform.LookAt(transform.position + cam.forward);
     }
 }

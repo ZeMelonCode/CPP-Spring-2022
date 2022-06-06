@@ -46,7 +46,7 @@ public class FirstPersonController : MonoBehaviour
                  }
                  catch
                  {
-                     Debug.Log("You did not look at a skeleton yet");
+                   
                  }
              }
          }
