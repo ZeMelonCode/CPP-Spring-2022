@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 173494390591738044}
   - component: {fileID: 173494390591738045}
   - component: {fileID: 173494390591738042}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 173494391647658016}
   - component: {fileID: 173494391647658017}
   - component: {fileID: -1285143840954538816}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -197,7 +197,7 @@ GameObject:
   - component: {fileID: 173494391888314258}
   - component: {fileID: 173494391888314259}
   - component: {fileID: 173494391888314260}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Body
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -276,7 +276,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 837126535737736772}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -304,6 +304,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 173494390591738043}
     m_Modifications:
+    - target: {fileID: 2272870915880119118, guid: d067e750fe430a849828938fc1b3e4c2, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2835148425647072725, guid: d067e750fe430a849828938fc1b3e4c2, type: 3}
       propertyPath: fpsCam
       value: 
@@ -355,6 +359,18 @@ PrefabInstance:
     - target: {fileID: 3692157228938084714, guid: d067e750fe430a849828938fc1b3e4c2, type: 3}
       propertyPath: m_Name
       value: Shotgun
+      objectReference: {fileID: 0}
+    - target: {fileID: 3692157228938084714, guid: d067e750fe430a849828938fc1b3e4c2, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5649004693788219415, guid: d067e750fe430a849828938fc1b3e4c2, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5649004693788230473, guid: d067e750fe430a849828938fc1b3e4c2, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d067e750fe430a849828938fc1b3e4c2, type: 3}

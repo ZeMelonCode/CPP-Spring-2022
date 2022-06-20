@@ -65,7 +65,7 @@ public class GunSystem : Weapon
     private void Shoot()
     {
         //Spread 
-
+        SoundManager.instance.PlayGunShot();
         float x = UnityEngine.Random.Range(-spread, spread);
         float y = UnityEngine.Random.Range(-spread, spread);
 

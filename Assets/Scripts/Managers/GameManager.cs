@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public HealthBar healthBar;
     public Transform[] spawnPoints;
     static GameManager _instance = null;
+    public bool WinCondition = false;
+    public bool GhostShipDead = false;
     public static GameManager instance
     {
         get { return _instance; }
@@ -110,6 +112,12 @@ public class GameManager : MonoBehaviour
 
      private void LoseLife()
     {
+        GameObject[] fireSkeles = GameObject.FindGameObjectsWithTag("FloatingSkull");
+        foreach(GameObject fireSkele in fireSkeles)
+        {
+            Destroy(fireSkele);
+        }
+
         Debug.Log(lives);
         if(_lives <= 0)
         {

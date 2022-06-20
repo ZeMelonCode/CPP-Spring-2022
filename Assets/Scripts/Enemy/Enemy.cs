@@ -31,8 +31,7 @@ public class Enemy : MonoBehaviour
 
     public virtual void Death()
     {
-        if (verbose)
-            Debug.Log("Can be overriden in child classes to implement their own game over/death");
+        
     }
 
     public virtual void TakeDamage(float damage)

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class End : MonoBehaviour
 {
@@ -8,11 +9,9 @@ public class End : MonoBehaviour
    {
        if(other.gameObject.tag == "Player")
        {
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #else
-            Application.Quit();
-        #endif
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        SceneManager.LoadScene("Win");
        }
    }
 }

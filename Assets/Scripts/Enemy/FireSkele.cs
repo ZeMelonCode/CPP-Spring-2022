@@ -121,6 +121,7 @@ public class FireSkele : Enemy
         anim.SetBool("Screaming" , true);
         yield return new WaitForSeconds(1.5f);
         firePartical.Play();
+        SoundManager.instance.PlayFireSpawn();
         Collider[] colliders = Physics.OverlapSphere(transform.position, 3f);
         foreach (Collider hit in colliders)
         {

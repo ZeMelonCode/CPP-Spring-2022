@@ -9,8 +9,11 @@ public class WaterDamage : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            if(GameManager.instance.playerInstance)
-            GameManager.instance.playerTakeDamage(0.1f);
+            if(GameManager.instance.GhostShipDead == false)
+            {
+                if(GameManager.instance.playerInstance)
+                GameManager.instance.playerTakeDamage(0.1f);
+            }
         }
     }
 }
